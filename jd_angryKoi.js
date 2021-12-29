@@ -115,7 +115,7 @@ let notify, allMessage = '';
                     remainingTryCount -= 1
 
                     // 等待一会，避免频繁请求
-                    await $.wait(500)
+                    // await $.wait(500)
                 }
             } else {
                 // 获取失败，跳过
