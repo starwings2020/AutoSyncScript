@@ -51,7 +51,7 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
                          }
                          continue
                     }
-                    if (InviterPin.length < 4) {
+                    if (InviterPin.length < 3) {
                          await info()
                     }
                     if (InviterPin.length)
