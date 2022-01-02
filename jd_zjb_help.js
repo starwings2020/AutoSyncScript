@@ -14,11 +14,8 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
-var InviterPin = ''; //
-
-if (process.env.InviterPin) {
-     InviterPin = process.env.InviterPin;
-}
+var InviterPin = []; //
+var dddd = 0;
 
 if ($.isNode()) {
      Object.keys(jdCookieNode).forEach((item) => {
@@ -53,10 +50,11 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
                     }
                     continue
                }
-               if (!InviterPin) {
+               if (InviterPin.length < 4) {
                     await info()
                }
-               await help()
+               if (InviterPin.length)
+                    await help()
           }
      }
 })()
@@ -92,7 +90,7 @@ function info() {
                     //console.log(reust)
                     if (reust.code == 0) {
                          if (reust.data.encryptionInviterPin)
-                              InviterPin = reust.data.encryptionInviterPin
+                              InviterPin.push(reust.data.encryptionInviterPin)
                          $.log("你的邀请码：" + reust.data.encryptionInviterPin)
                     } else
 
@@ -112,7 +110,7 @@ function help() {
           let options = {
                url: `https://api.m.jd.com`,
 
-               body: `functionId=TaskInviteService&body={"method":"participateInviteTask","data":{"channel":"1","encryptionInviterPin":"${InviterPin}","type":1}}&appid=market-task-h5&uuid=7303439343432346-7356431353233311&eu=7303439343432341&fv=7356431353233321&_t=1623475839367`,
+               body: `functionId=TaskInviteService&body={"method":"participateInviteTask","data":{"channel":"1","encryptionInviterPin":"${InviterPin[dddd]}","type":1}}&appid=market-task-h5&uuid=7303439343432346-7356431353233311&eu=7303439343432341&fv=7356431353233321&_t=1623475839367`,
                headers: {
                     "Origin": "https://assignment.jd.com",
                     "Host": "api.m.jd.com",
@@ -124,7 +122,7 @@ function help() {
                try {
                     const reust = JSON.parse(data)
                     if (reust.code == 0) {
-                         $.log(`即将开始邀请：${InviterPin}\n邀请获得金币: ` + reust.data.coinReward * 0.1 + "金币")
+                         $.log(`即将开始邀请：${InviterPin[dddd]}\n邀请获得金币: ` + reust.data.coinReward * 0.1 + "金币")
                     } else
 
                          console.log(reust.message)
