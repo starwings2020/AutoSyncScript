@@ -53,7 +53,7 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
                     }
                     continue
                }
-               if (InviterPin) {
+               if (!InviterPin) {
                     await info()
                }
                await help()
@@ -91,8 +91,8 @@ function info() {
                     const reust = JSON.parse(data)
                     //console.log(reust)
                     if (reust.code == 0) {
-                         if(reust.data.encryptionInviterPin)
-                         InviterPin = reust.data.encryptionInviterPin
+                         if (reust.data.encryptionInviterPin)
+                              InviterPin = reust.data.encryptionInviterPin
                          $.log("你的邀请码：" + reust.data.encryptionInviterPin)
                     } else
 
